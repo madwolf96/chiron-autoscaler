@@ -1,0 +1,5 @@
+pyrabbit
+kubernetes
+fcache
+python-json-logger
+gevent
