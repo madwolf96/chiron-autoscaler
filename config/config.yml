@@ -1,8 +1,8 @@
 server:
   hosts:
-    - rabbit-de-1
-    - rabbit-de-2
-    - rabbit-de-3
+    - <rabbit-host-1>
+    - <rabbit-host-2>
+    - <rabbit-host-3>
   username: ${RABBIT_USERNAME}
   password: ${RABBIT_PASSWORD}
 scaler:
