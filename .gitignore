@@ -14,7 +14,6 @@ bin-release/
 *.apk
 *.kube
 .kube
-**/config
 # maven repo
 .netrc
 

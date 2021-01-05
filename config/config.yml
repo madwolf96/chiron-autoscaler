@@ -1,0 +1,70 @@
+server:
+  hosts:
+    - rabbit-de-1
+    - rabbit-de-2
+    - rabbit-de-3
+  username: ${RABBIT_USERNAME}
+  password: ${RABBIT_PASSWORD}
+scaler:
+  # deployment_name:
+  #   minPod: default = 0 if not set
+  #   maxPod:
+  #   vHost:
+  #   interval: time between 2 scraping or time of init worker
+  #   accumulative_limit: number of pods of every scale default = 1 if not set
+  #   queues: list of queues
+
+  de-k8-ogdg-sa-enrich-with-avatar:
+    minPod: 1
+    maxPod: 5
+    vHost: ongoing_demographics
+    interval: 280
+    queues:
+      - ogdg.enrich_sa_with_avatar_by_ids
+      - prioritized_ogdg.enrich_sa_with_avatar_by_ids
+
+  de-k8-dg2-sa-enrich-location:
+    minPod: 1
+    maxPod: 10
+    vHost: dg2
+    interval: 280
+    queues:
+      - dg2.enrich_sa_locations_timezones_by_ids
+
+  de-k8-harvesting-relationship-tasks:
+    minPod: 0
+    maxPod: 10
+    vHost: da
+    interval: 100
+    queues:
+      - harvesting.process_follower_rlt
+      - harvesting.process_following
+      - harvesting.update_following_relationship
+      - harvesting.to_crawl_follower_accs
+      - harvesting.to_enrich_followers
+      - harvesting.process_and_write_suggestions
+
+  de-k8-harvesting-store-sa-posts-ins:
+    minPod: 0
+    maxPod: 5
+    vHost: da
+    interval: 60
+    queues:
+      - harvesting.store_sa_posts_ins
+
+  de-k8-harvesting-crawl-ins-public-account:
+    minPod: 0
+    maxPod: 5
+    vHost: da
+    interval: 60
+    queues:
+      - harvesting.crawl_ins_public_account
+      - harvesting.crawl_ins_profile_by_id
+
+  de-k8-harvesting-crawl-post-full:
+    minPod: 0
+    maxPod: 5
+    vHost: da
+    interval: 60
+    queues:
+      - harvesting.crawl_full_post
