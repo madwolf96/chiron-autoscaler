@@ -1,7 +1,3 @@
-# Copyright (C) 2020 XOMAD. All rights reserved.
-#
-# Created on 2020-09-28
-
 import logging
 import os
 
