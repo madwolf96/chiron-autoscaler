@@ -35,3 +35,7 @@ class ConfigLoader:
     def get_deployment_properties(self, deployment_name):
         return self.parsed_config_file['scaler'][deployment_name]
 
+
+if __name__ == '__main__':
+    config = ConfigLoader()
+    print(config.deployments)

@@ -26,12 +26,18 @@ class WorkerScaler:
         max_pod = deployment_properties['maxPod']
         queues = self.scraper.exclude_idle_queue_from_list()
 
+        # try:
+        #     accumulative_limit = deployment_properties['accumulativeLimit']
+        # except KeyError:
+        #    self.logger.info("accumulativeLimit not found in deployment %s config\nUsing default accumulativeLimit = 1"
+        #                      % self.deployment_name)
+        #     accumulative_limit = 1
+
         try:
-            accumulative_limit = deployment_properties['accumulativeLimit']
+            multiplier = deployment_properties['multiplier']
         except KeyError:
-            self.logger.info("accumulativeLimit not found in deployment %s config\nUsing default accumulativeLimit = 1"
-                             % self.deployment_name)
-            accumulative_limit = 1
+            self.logger.info("multiplier not found in deployment %s config\nUsing default multiplier = 10")
+            multiplier = 10
 
         try:
             min_pod = deployment_properties['minPod']
@@ -51,15 +57,23 @@ class WorkerScaler:
                 self.logger.info(f"Scale {self.deployment_name} from {current_pods} to {min_pod}")
                 return min_pod
 
-        average_consumer_utilisation = self.scraper.get_queues_average_consumer_utilisation()
+        total_message = self.scraper.total_messages()
+        # average_consumer_utilisation = self.scraper.get_queues_average_consumer_utilisation()
 
-        desired_pods = current_pods
-        if current_pods < min_pod:
-            desired_pods = min_pod
-        elif min_pod <= current_pods < max_pod:
-            if average_consumer_utilisation < 0.9:
-                desired_pods = current_pods + accumulative_limit
-        elif current_pods >= max_pod:
+        desired_pods = total_message // multiplier
+        # if current_pods < min_pod:
+        #     desired_pods = min_pod
+        # elif min_pod <= current_pods < max_pod:
+        #     if average_consumer_utilisation < 0.9:
+        #         desired_pods = current_pods + accumulative_limit
+        # elif current_pods >= max_pod:
+        #     desired_pods = max_pod
+        if desired_pods <= min_pod:
+            if min_pod != 0:
+                desired_pods = min_pod
+            elif min_pod == 0:
+                desired_pods = 1
+        elif desired_pods >= max_pod:
             desired_pods = max_pod
 
         if desired_pods == current_pods == max_pod:
@@ -102,6 +116,6 @@ class WorkerScaler:
 
 
 if __name__ == '__main__':
-    k8s = WorkerScaler(deployment_name='de-k8-harvesting-store-sa-posts-ins')
+    k8s = WorkerScaler(deployment_name='de-k8-dg2-analyze')
     pod_number = k8s.calculate_desired_pods()
     print(pod_number)
