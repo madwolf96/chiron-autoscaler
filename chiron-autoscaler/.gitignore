@@ -1,0 +1,8 @@
+# kube config
+.kube
+# maven repo
+.netrc
+
+chiron-autoscaler.iml
+
+chiron-xomad.json

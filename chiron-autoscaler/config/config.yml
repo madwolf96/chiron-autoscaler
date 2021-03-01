@@ -1,0 +1,848 @@
+scaler:
+  de-k8-collab1-crawl-new-post:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.crawl_new_post
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-crawl-post-full:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.crawl_full_post
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-crawling-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.crawl_ins_public_account
+      - collab.crawl_html_profile
+      - collab.write_profile_to_db
+      - collab.write_inactive_profile_to_db
+      - collab.write_enriched_profiles_to_db
+      - collab.write_db_post_enriched
+      - collab.write_post_to_db
+      - collab.process_post
+      - collab.store_post_media
+      - collab.enrich_ins_posts_erate
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - collab.send_sponpost_app_bids
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-post-enrich-sponsored:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.enrich_posts_sponsored_by_ids
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-sa-enrich-location:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-sa-enrich-with-avatar:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: collab1
+  de-k8-collab1-sa-enriching-short:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - collab.detect_sa_language_bids
+      - collab.enrich_sa_parsed_bio_by_ids
+      - collab.enrich_sa_email_by_ids
+      - collab.enrich_sa_parental_by_ids
+    ttl: 3.0
+    vHost: collab1
+  de-k8-da-enrich-influencer-score:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - da.enrich_influencer_score
+    ttl: 3.0
+    vHost: da
+  de-k8-da-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - da.request_enrich_sa_bids
+    ttl: 3.0
+    vHost: da
+  de-k8-da-sa-enrich-location:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - da.enrich_sa_human_location_by_ids
+      - da.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: da
+  de-k8-da-sa-enrich-with-avatar:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - da.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: da
+  de-k8-da-sa-enriching:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - da.detect_sa_language_bids
+      - da.enrich_sa_parental_marital_email_by_ids
+      - da.enriching_sa_parsed_bio_and_lang_by_ids
+    ttl: 3.0
+    vHost: da
+  de-k8-dg1-analyze:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.agg_audience_dg
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-central-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - prioritized_dg1.request_enrich_sa_bids
+      - dg1.request_enrich_sa_bids
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-collect:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.check_demographics_tracking
+      - dg1.collect_audience_clf_status
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-crawl-ins-public-account:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.crawl_ins_public_account
+      - dg1.crawl_ins_profile_by_id
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-follower:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - prioritized_dg1.to_enrich_followers
+      - prioritized_dg1.to_crawl_follower_accs
+      - dg1.process_follower_rlt
+      - dg1.update_follower_relationship
+      - dg1.handle_dg_followers
+      - dg1.to_crawl_follower_accs
+      - dg1.to_enrich_followers
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-location-enrich:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.detect_location
+      - dg1.enrich_sa_locations_timezones_by_ids
+      - prioritized_dg1.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-location-filter:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.filter_location
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-profiles:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - prioritized_dg1.crawl_html_profile
+      - dg1.crawl_html_profile
+      - dg1.crawl_new_user
+      - dg1.process_profile
+      - prioritized_dg1.process_profile
+      - dg1.write_profile_to_db
+      - prioritized_dg1.write_profile_to_db
+      - prioritized_dg1.write_inactive_profile_to_db
+      - dg1.write_inactive_profile_to_db
+      - dg1.write_enriched_profiles_to_db
+      - prioritized_dg1.write_enriched_profiles_to_db
+      - prioritized_dg1.process_post
+      - dg1.process_post
+      - prioritized_dg1.write_post_to_db
+      - dg1.write_post_to_db
+      - dg1.store_profile_avatar
+      - prioritized_dg1.store_profile_avatar
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-sa-enrich-with-avatar:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.enrich_sa_with_avatar_by_ids
+      - prioritized_dg1.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-sa-enriching:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.detect_sa_language_bids
+      - dg1.enriching_sa_parsed_bio_and_lang_by_ids
+      - dg1.enrich_sa_email_by_ids
+      - dg1.enrich_sa_parental_by_ids
+      - prioritized_dg1.detect_sa_language_bids
+      - prioritized_dg1.enriching_sa_parsed_bio_and_lang_by_ids
+      - prioritized_dg1.enrich_sa_email_by_ids
+      - prioritized_dg1.enrich_sa_parental_by_ids
+      - dg1.enrich_sa_parental_marital_email_by_ids
+      - prioritized_dg1.enrich_sa_parental_marital_email_by_ids
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg1-sa-marital:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg1.enrich_sa_marital_by_ids
+      - prioritized_dg1.enrich_sa_marital_by_ids
+    ttl: 3.0
+    vHost: dg1
+  de-k8-dg2-analyze:
+    interval: 100
+    maxPod: 10
+    minPod: 0
+    queues:
+      - dg2.agg_audience_dg
+    ttl: 1.0
+    vHost: dg2
+  de-k8-dg2-central-navigator:
+    interval: 120
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - dg2.request_enrich_sa_bids
+    ttl: 3.0
+    vHost: dg2
+  de-k8-dg2-email-enrich:
+    interval: 120
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg2.enrich_sa_email_by_ids
+      - dg2.store_profile_avatar
+    ttl: 3.0
+    vHost: dg2
+  de-k8-dg2-lang-enrich:
+    interval: 120
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg2.detect_sa_language_bids
+      - dg2.enriching_sa_parsed_bio_and_lang_by_ids
+      - dg2.enrich_sa_marital_by_ids
+      - dg2.enrich_sa_parental_by_ids
+      - dg2.enrich_sa_parental_marital_email_by_ids
+    ttl: 3.0
+    vHost: dg2
+  de-k8-dg2-sa-enrich-location:
+    interval: 120
+    maxPod: 10
+    minPod: 0
+    queues:
+      - dg2.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: dg2
+  de-k8-dg2-sa-enrich-with-avatar:
+    interval: 120
+    maxPod: 5
+    minPod: 0
+    queues:
+      - dg2.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: dg2
+  de-k8-engager-crawl-post-full:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.crawl_full_post
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-posts:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.store_post_media
+      - engager.process_post
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-posts-enriching:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.enrich_ins_posts_erate
+      - engager.enrich_posts_pcintent
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-sa-enrich-location:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-sa-enrich-with-avatar:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-sa-enriching:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.enrich_sa_email_by_ids
+      - engager.enrich_sa_parental_by_ids
+      - engager.detect_sa_language_bids
+      - engager.enriching_sa_parsed_bio_and_lang_by_ids
+      - engager.store_profile_avatar
+      - engager.crawl_html_profile
+      - engager.request_enrich_sa_bids
+      - engager.process_profile
+      - engager.to_crawl_commenters
+      - engager.to_crawl_likers
+      - engager.to_enrich_likers
+      - engager.to_enrich_commenters
+      - engager.enrich_sa_marital_by_ids
+      - engager.enrich_sa_parental_marital_email_by_ids
+      - engager.enrich_influencer_score
+    ttl: 3.0
+    vHost: engager
+  de-k8-engager-writes:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - engager.write_post_to_db
+      - engager.write_db_post_enriched
+      - engager.write_profile_to_db
+      - engager.write_inactive_profile_to_db
+      - engager.write_enriched_profiles_to_db
+    ttl: 3.0
+    vHost: engager
+  de-k8-farming-crawl-ins-public-account:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.crawl_ins_public_account
+      - farming.crawl_ins_profile_by_id
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-crawl-post:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.crawl_post
+      - farming.crawl_post_by_tag
+      - farming.crawl_tagged_post
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-crawl-post-full:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.crawl_full_post
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-post-enriched-sponsored:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.enrich_posts_sponsored
+      - farming.enrich_posts_sponsored_by_ids
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-post-ins-erate:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.enrich_ins_posts_erate
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-post-process:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.write_db_post_enriched
+      - farming.write_post_to_db
+      - farming.process_post
+      - farming.store_post_media
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-profile-crawler-html:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.crawl_html_profile
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-profile-process:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.process_profile
+      - farming.write_profile_to_db
+      - farming.write_inactive_profile_to_db
+      - farming.to_crawl_profile
+      - farming.store_profile_avatar
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-relationship-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.process_follower_rlt
+      - farming.process_following
+      - farming.update_following_relationship
+      - farming.to_crawl_follower_accs
+      - farming.to_enrich_followers
+      - farming.process_and_write_suggestions
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-store-sa-posts-ins:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.store_sa_posts_ins
+    ttl: 3.0
+    vHost: da
+  de-k8-farming-youtube:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - farming.store_yt_videos_by_ids
+      - farming.store_yt_channel_by_ids
+      - farming.store_sa_ts
+      - farming.store_yt_channel_videos_by_id
+    ttl: 3.0
+    vHost: da
+  de-k8-harvesting-crawl-ins-public-account:
+    interval: 300
+    maxPod: 10
+    minPod: 0
+    queues:
+      - harvesting.crawl_ins_public_account
+      - harvesting.crawl_ins_profile_by_id
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-crawl-post:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.crawl_post
+      - harvesting.crawl_post_by_tag
+      - harvesting.crawl_tagged_post
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-crawl-post-full:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.crawl_full_post
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-post-enriched-sponsored:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.enrich_posts_sponsored
+      - harvesting.enrich_posts_sponsored_by_ids
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-post-ins-erate:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.enrich_ins_posts_erate
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-post-process:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.write_db_post_enriched
+      - harvesting.write_post_to_db
+      - harvesting.process_post
+      - harvesting.store_post_media
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-profile-crawler-html:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.crawl_html_profile
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-profile-process:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.process_profile
+      - harvesting.write_profile_to_db
+      - harvesting.write_inactive_profile_to_db
+      - harvesting.to_crawl_profile
+      - harvesting.store_profile_avatar
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-relationship-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.process_follower_rlt
+      - harvesting.process_following
+      - harvesting.update_following_relationship
+      - harvesting.to_crawl_follower_accs
+      - harvesting.to_enrich_followers
+      - harvesting.process_and_write_suggestions
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-store-sa-posts-ins:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.store_sa_posts_ins
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-store-tt-comment-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.store_tt_commenter
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-store-tt-sa-mobile-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.store_tt_profile_by_id
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-store-tt-sa-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.store_tt_profile_by_username
+      - harvesting.calculate_tt_erate_by_sa_id
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-tt-post-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.store_tt_video_by_url
+      - harvesting.store_tt_video_by_id
+      - harvesting.store_tt_post_by_sa_id
+      - harvesting.store_tt_posts_by_tag
+    ttl: 2.0
+    vHost: da
+  de-k8-harvesting-tt-relation-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - harvesting.crawl_tt_followers_rlt_by_id
+      - harvesting.process_tt_followers_rlt
+      - harvesting.crawl_tt_followings_rlt_by_id
+      - harvesting.process_tt_followings_rlt
+    ttl: 2.0
+    vHost: da
+  de-k8-ogdg-analyze:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.analyze_audiences_demographic
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-central-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - prioritized_ogdg.request_enrich_sa_bids
+      - ogdg.request_enrich_sa_bids
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-collect:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.check_demographics_tracking
+      - ogdg.collect_audience_clf_status
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-crawl-ins-public-account:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.crawl_ins_public_account
+      - ogdg.crawl_ins_profile_by_id
+      - prioritized_ogdg.crawl_ins_public_account
+      - prioritized_ogdg.crawl_ins_profile_by_id
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-enrich-influencer-score:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.enrich_influencer_score
+      - prioritized_ogdg.enrich_influencer_score
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-follower:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - prioritized_ogdg.to_enrich_followers
+      - prioritized_ogdg.to_crawl_follower_accs
+      - ogdg.process_follower_rlt
+      - ogdg.update_follower_relationship
+      - ogdg.handle_dg_followers
+      - ogdg.to_crawl_follower_accs
+      - ogdg.to_enrich_followers
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-location-enrich:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.enrich_sa_locations_timezones_by_ids
+      - prioritized_ogdg.enrich_sa_locations_timezones_by_ids
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-profiles:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.crawl_new_user
+      - ogdg.process_profile
+      - prioritized_ogdg.process_profile
+      - ogdg.write_profile_to_db
+      - prioritized_ogdg.write_profile_to_db
+      - prioritized_ogdg.write_inactive_profile_to_db
+      - ogdg.write_inactive_profile_to_db
+      - ogdg.write_enriched_profile_to_db
+      - prioritized_ogdg.write_enriched_profile_to_db
+      - prioritized_ogdg.process_post
+      - ogdg.process_post
+      - prioritized_ogdg.write_post_to_db
+      - ogdg.write_post_to_db
+      - ogdg.store_profile_avatar
+      - prioritized_ogdg.store_profile_avatar
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-profiles-crawling:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - prioritized_ogdg.crawl_html_profile
+      - ogdg.crawl_html_profile
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-sa-enrich-with-avatar:
+    interval: 300
+    maxPod: 10
+    minPod: 0
+    queues:
+      - ogdg.enrich_sa_with_avatar_by_ids
+      - prioritized_ogdg.enrich_sa_with_avatar_by_ids
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogdg-sa-enriching:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - ogdg.detect_sa_language_bids
+      - ogdg.enriching_sa_parsed_bio_and_lang_by_ids
+      - ogdg.enrich_sa_email_by_ids
+      - ogdg.enrich_sa_marital_by_ids
+      - ogdg.enrich_sa_parental_by_ids
+      - prioritized_ogdg.detect_sa_language_bids
+      - prioritized_ogdg.enrich_sa_parsed_bio_by_ids
+      - prioritized_ogdg.enrich_sa_email_by_ids
+      - prioritized_ogdg.enrich_sa_parental_by_ids
+      - prioritized_ogdg.enrich_sa_marital_by_ids
+      - ogdg.enrich_sa_parental_marital_email_by_ids
+      - prioritized_ogdg.enrich_sa_parental_marital_email_by_ids
+    ttl: 3.0
+    vHost: ongoing_demographics
+  de-k8-ogtw-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+      - ogtw.get_profile_from_app
+      - ogtw.get_post_from_app
+    ttl: 3.0
+    vHost: ogtw
+  de-k8-sp1-crawl-post-full:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.crawl_full_post
+      - sponpost.crawl_new_post
+      - sponpost.crawl_post_by_tag
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-navigator:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - central_navigator
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-post-enrich-sponsored:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.enrich_posts_sponsored_by_ids
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-post-ins-erate:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.enrich_ins_posts_erate
+      - sponpost.enrich_sa_posts_ins
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-post-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.write_db_post_enriched
+      - sponpost.write_post_to_db
+      - sponpost.process_post
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-profile-html-crawler:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.crawl_html_profile
+      - sponpost.store_post_media
+    ttl: 3.0
+    vHost: sp1
+  de-k8-sp1-profile-tasks:
+    interval: 300
+    maxPod: 5
+    minPod: 0
+    queues:
+      - sponpost.write_profile_to_db
+      - sponpost.write_inactive_profile_to_db
+      - sponpost.write_enriched_profiles_to_db
+    ttl: 3.0
+    vHost: sp1
+    multiplier:
+server:
+  hosts:
+    - rabbit-de-1
+    - rabbit-de-2
+    - rabbit-de-3
+  password: ${RABBIT_PASSWORD}
+  username: ${RABBIT_USERNAME}

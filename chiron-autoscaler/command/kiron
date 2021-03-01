@@ -1,0 +1,119 @@
+#!python
+
+import re
+from argparse import ArgumentParser
+
+import yaml
+from kubernetes import client, config
+
+
+class Chiron:
+
+    def __init__(self):
+        config.load_kube_config()
+        self.core_v1 = client.CoreV1Api()
+        self.exclude = []
+
+    def patching_config(self, pipe_config):
+        self.config_validator(pipe_config)
+        self.apply_configmap(built_config=self.build_config_deployment(pipe_config=pipe_config))
+        self.restart_deployment()
+
+    def apply_configmap(self, built_config):
+        configmap = self.core_v1.read_namespaced_config_map(namespace='chiron', name='chiron-config')
+        configmap_data = yaml.load(configmap.data['config.yml'], Loader=yaml.SafeLoader)
+        configmap_data['scaler'].update(built_config)
+
+        if self.exclude:
+            for deployment in self.exclude:
+                configmap_data['scaler'].pop(deployment)
+
+        configmap.data['config.yml'] = yaml.dump(configmap_data)
+        return self.core_v1.replace_namespaced_config_map(namespace='chiron', name='chiron-config', body=configmap)
+
+    def restart_deployment(self):
+        chiron_pod_name = self.core_v1.list_namespaced_pod(namespace='chiron').items[0].metadata.name
+        return self.core_v1.delete_namespaced_pod(namespace='chiron', name=chiron_pod_name)
+
+    def build_config_deployment(self, pipe_config):
+        pipe_name = next(iter(pipe_config))
+
+        # built for same
+        same_deployment_config = {'same': {}}
+
+        self.build_dict_config(name='same', dict_name=same_deployment_config, pipe_config=pipe_config,
+                               pipe_name=pipe_name)
+
+        # built for deployments
+        built_deployment_config = {deployment: {} for deployment in pipe_config[pipe_name] if
+                                   deployment not in ['version', 'same']}
+
+        for deployment in built_deployment_config:
+            built_deployment_config[deployment].update(same_deployment_config['same'])
+            try:
+                if pipe_config[pipe_name][deployment]['chiron']['enable'] is False:
+                    self.exclude.append(deployment)
+            except KeyError:
+                self.build_dict_config(name=deployment, dict_name=built_deployment_config, pipe_config=pipe_config,
+                                       pipe_name=pipe_name)
+
+        return built_deployment_config
+
+    @staticmethod
+    def build_dict_config(name, dict_name, pipe_config, pipe_name):
+
+        try:
+            rabbit_broker = pipe_config[pipe_name][name]['env']['BROKER_URL']
+            vhost = re.match(r'^.*5672/(.*)', rabbit_broker).group(1)
+            dict_name[name].update({"vHost": vhost})
+        except KeyError:
+            pass
+
+        try:
+            queues = pipe_config[pipe_name][name]['env']['QUEUE'].split(',')
+            dict_name[name].update({"queues": queues})
+        except KeyError:
+            pass
+
+        try:
+            dict_name[name].update(pipe_config[pipe_name][name]['chiron'])
+        except KeyError:
+            pass
+
+        return dict_name
+
+    @staticmethod
+    def config_validator(pipe_config):
+        pipe_name = next(iter(pipe_config))
+
+        # same
+        if 'chiron' not in pipe_config[pipe_name]['same']:
+            same_chiron = False
+        else:
+            same_chiron = True
+
+        for deployment in pipe_config[pipe_name]:
+            if deployment not in ['version', 'same']:
+                if not same_chiron:
+                    try:
+                        pipe_config[pipe_name][deployment]['chiron']
+                    except KeyError as e:
+                        print(f'KeyError: {e} in deployment {deployment}')
+                        raise
+
+
+def main():
+    parser = ArgumentParser(description='Apply chiron config')
+    parser.add_argument('-f', '--filepath', dest='filepath',
+                        help='Usage: --filepath or -f ex: -f deployment.yml',
+                        required=True)
+    args = parser.parse_args()
+
+    file = open(args.filepath, 'r')
+    pipe_config = yaml.load(file, Loader=yaml.SafeLoader)
+    chiron = Chiron()
+    chiron.patching_config(pipe_config)
+
+
+if __name__ == '__main__':
+    main()
